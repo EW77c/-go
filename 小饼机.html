@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS Style Mockup</title>
+    <style>
+        :root {
+            --ios-bg: #f2f2f7;
+            --ios-card: rgba(255, 255, 255, 0.7);
+            --ios-text: #000000;
+            --ios-blue: #007aff;
+            --icon-radius: 22%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 手机框架 */
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background-color: var(--ios-bg);
+            border-radius: 50px;
+            border: 12px solid #333;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部刘海/状态栏 */
+        .status-bar {
+            height: 44px;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 30px;
+            background: #333;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        /* 顶部区域 (Header) */
+        .header {
+            position: relative;
+            height: 200px;
+            margin-top: 20px;
+        }
+
+        .header-bg {
+            width: 90%;
+            height: 120px;
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            position: absolute;
+            left: 50%;
+            top: 120px; /* 背景块高度处 */
+            transform: translate(-50%, -50%); /* 向上偏移50%，使其中心点位于交界处 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 使用SVG占位头像 */
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #e1e1e1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+        }
+
+        /* 中部内容区 (Main Content) */
+        .main-content {
+            flex: 1;
+            padding: 60px 20px 20px; /* 顶部留出空间给头像 */
+            display: flex;
+            gap: 20px;
+        }
+
+        /* 左侧信封 */
+        .left-pane {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 10px;
+        }
+
+        .mail-icon-large {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #5e5ce6 0%, #7d7aff 100%);
+            border-radius: var(--icon-radius);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(94, 92, 230, 0.3);
+            color: white;
+            font-size: 40px;
+        }
+
+        /* 右侧 2x2 网格 */
+        .right-pane {
+            flex: 1.5;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--icon-radius);
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+
+        .app-label {
+            font-size: 12px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* 具体图标颜色 */
+        .icon-wechat { background: #07c160; color: white; }
+        .icon-world { background: #007aff; color: white; }
+        .icon-settings { background: #8e8e93; color: white; }
+        .icon-beautify { background: #ff2d55; color: white; }
+
+        /* 底部 Dock 栏 */
+        .dock-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 90px;
+            background: var(--ios-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dock-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--icon-radius);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .icon-phone { background: #34c759; color: white; }
+        .icon-novel { background: #ff9500; color: white; }
+        .icon-forum { background: #5856d6; color: white; }
+
+        /* 响应式调整 */
+        @media (max-width: 400px) {
+            body {
+                padding: 0;
+            }
+            .phone-frame {
+                width: 100vw;
+                height: 100vh;
+                border: none;
+                border-radius: 0;
+            }
+            .notch {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-frame">
+        <div class="notch"></div>
+        <div class="status-bar">
+            <span>19:04</span>
+            <div style="display: flex; gap: 5px;">
+                <span>📶</span>
+                <span>🔋</span>
+            </div>
+        </div>
+
+        <!-- 顶部区域 -->
+        <header class="header">
+            <div class="header-bg"></div>
+            <div class="avatar">
+                <div class="avatar-placeholder">👤</div>
+            </div>
+        </header>
+
+        <!-- 中部内容区 -->
+        <main class="main-content">
+            <div class="left-pane">
+                <div class="mail-icon-large">✉️</div>
+            </div>
+            <div class="right-pane">
+                <div class="app-grid">
+                    <div class="app-item">
+                        <div class="app-icon icon-wechat">💬</div>
+                        <span class="app-label">微信</span>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon icon-world">🌐</div>
+                        <span class="app-label">世界书</span>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon icon-settings">⚙️</div>
+                        <span class="app-label">设置</span>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon icon-beautify">🎨</div>
+                        <span class="app-label">美化</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 底部 Dock 栏 -->
+        <div class="dock-container">
+            <div class="dock-item">
+                <div class="dock-icon icon-phone">📞</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon icon-novel">📖</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon icon-forum">🏘️</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
